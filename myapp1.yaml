@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-deployment
+  labels:
+    app: devops
+spec:
+  replicas: 2   # adjust replica count as needed
+  selector:
+    matchLabels:
+      app: devops
+  template:
+    metadata:
+      labels:
+        app: devops
+    spec:
+      containers:
+      - name: devops-container
+        image: 605134427896.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+        ports:
+        - containerPort: 80   # change if your app listens on another port
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-service
+spec:
+  type: LoadBalancer   # or ClusterIP/NodePort depending on your needs
+  selector:
+    app: devops
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
