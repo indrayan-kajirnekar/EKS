@@ -21,10 +21,10 @@ spec:
         - containerPort: 80   # change if your app listens on another port
         resources:
           requests:
-            cpu: "4m"
+            cpu: "1m"
             memory: "512Mi"
           limits:
-            cpu: "7m"
+            cpu: "12m"
             memory: "512Mi"
 ---
 apiVersion: v1
